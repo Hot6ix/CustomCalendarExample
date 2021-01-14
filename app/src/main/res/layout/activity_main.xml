@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/subtract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-1M"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/add"/>
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+1M"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/subtract"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/locale_us"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="US"
+            app:layout_constraintTop_toBottomOf="@id/add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/locale_france"/>
+
+        <Button
+            android:id="@+id/locale_france"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="France"
+            app:layout_constraintTop_toBottomOf="@id/add"
+            app:layout_constraintStart_toEndOf="@id/locale_us"
+            app:layout_constraintEnd_toStartOf="@id/locale_iran"/>
+
+
+        <Button
+            android:id="@+id/locale_iran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iran"
+            app:layout_constraintTop_toBottomOf="@id/add"
+            app:layout_constraintStart_toEndOf="@id/locale_france"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/show_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show/Hide"
+            app:layout_constraintTop_toBottomOf="@id/locale_france"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/show_layout"
+            app:layout_constraintBottom_toTopOf="@id/bottom_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

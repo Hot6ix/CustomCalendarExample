@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="index"
+            type="Integer" />
+        <variable
+            name="calendar"
+            type="android.icu.util.Calendar" />
+        <variable
+            name="year"
+            type="Integer" />
+        <variable
+            name="month"
+            type="Integer" />
+        <variable
+            name="day"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_day_of_month_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{index % 2 != 0 ? @color/light_gray : @color/white}">
+
+        <TextView
+            android:id="@+id/item_day_of_month_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(day)}"
+            android:layout_margin="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_day_of_month_content_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/item_day_of_month_day"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
