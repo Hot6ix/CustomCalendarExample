@@ -222,6 +222,36 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
         }
     }
 
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        Log.d(TAG, "onViewAttachedToWindow()")
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        Log.d(TAG, "onViewDetachedFromWindow()")
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        Log.d(TAG, "onAttachedToRecyclerView()")
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        Log.d(TAG, "onDetachedFromRecyclerView()")
+    }
+
+    override fun onFailedToRecycleView(holder: RecyclerView.ViewHolder): Boolean {
+        Log.d(TAG, "onFailedToRecycleView()")
+        return super.onFailedToRecycleView(holder)
+    }
+
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        super.onViewRecycled(holder)
+        Log.d(TAG, "onViewRecycled()")
+    }
+
     inner class EmptyViewHolder(binding: ItemEmptyBinding): RecyclerView.ViewHolder(binding.root) {
         fun getItemDetails() = object : ItemDetailsLookup.ItemDetails<Long>() {
             override fun getPosition(): Int {

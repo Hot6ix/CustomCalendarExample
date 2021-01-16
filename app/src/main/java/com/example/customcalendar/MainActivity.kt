@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.example.customcalendar.databinding.ActivityMainBinding
@@ -40,8 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.calendar.apply {
             adapter = recyclerViewAdapter
-            layoutManager = GridLayoutManager(applicationContext, 7)
+            layoutManager = StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(false)
+            recycledViewPool.setMaxRecycledViews(CalendarViewAdapter.TYPE_DAY_OF_WEEK, 0)
+            recycledViewPool.setMaxRecycledViews(CalendarViewAdapter.TYPE_DAY_OF_MONTH, 0)
         }
 
         val tracker = SelectionTracker.Builder(
