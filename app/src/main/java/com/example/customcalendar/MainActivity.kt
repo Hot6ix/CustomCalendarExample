@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.calendar.apply {
             adapter = recyclerViewAdapter
+            itemAnimator = CalendarItemAnimator()
             layoutManager = StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(false)
             recycledViewPool.setMaxRecycledViews(CalendarViewAdapter.TYPE_DAY_OF_WEEK, 0)
