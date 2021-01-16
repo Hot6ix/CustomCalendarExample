@@ -8,8 +8,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.recyclerview.selection.*
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StorageStrategy
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.example.customcalendar.databinding.ActivityMainBinding
@@ -38,10 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.calendar.apply {
             adapter = recyclerViewAdapter
-            layoutManager = StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
-//            layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager = GridLayoutManager(applicationContext, 7)
             setHasFixedSize(false)
-            setItemViewCacheSize(0)
         }
 
         val tracker = SelectionTracker.Builder(
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             TransitionManager.beginDelayedTransition(binding.mainLayout, transition)
             set.applyTo(binding.mainLayout)
 
-            binding.calendar.adapter?.notifyItemRangeChanged(0, 100)
+            (binding.calendar.adapter as CalendarViewAdapter?)?.notifyAllItemsChanged()
         }
     }
 }

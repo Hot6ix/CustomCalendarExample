@@ -26,7 +26,6 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
     private var weekendOnSetPositions: Array<Int> = emptyArray()
     private var weekendCeasePositions: Array<Int> = emptyArray()
     private var dayOfWeekHeight: Int = -1
-    var c = 0
 
     init {
         setHasStableIds(true)
@@ -64,6 +63,10 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
         return false
     }
 
+    fun notifyAllItemsChanged() {
+        notifyItemRangeChanged(0, calendarItems.size)
+    }
+
     // Weekends are different between countries
     private fun updateWeekendData() {
         weekendOnSetPositions = Array(7) { -1 }
@@ -86,6 +89,7 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
     override fun getItemId(position: Int): Long = calendarItems[position].hashCode().toLong()
 
     override fun getItemViewType(position: Int): Int {
+        Log.d(TAG, "getItemViewType()")
         return when {
             position in 0..6 -> TYPE_DAY_OF_WEEK
             calendarItems[position].second < 0 -> TYPE_EMPTY
@@ -94,7 +98,7 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.d("tagggg", "onCreateViewHolder()-${c++}")
+        Log.d(TAG, "onCreateViewHolder()")
         return when(viewType) {
             TYPE_EMPTY -> {
                 val binding = DataBindingUtil.inflate<ItemEmptyBinding>(
@@ -119,9 +123,9 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
                             View.MeasureSpec.UNSPECIFIED,
                             View.MeasureSpec.UNSPECIFIED
                     )
-                }
 
-                binding.itemDayOfWeekLayout.layoutParams.height = dayOfWeekHeight
+                    dayOfWeekHeight = binding.itemDayOfWeekLayout.measuredHeight
+                }
 
                 DayOfWeekViewHolder(binding)
             }
@@ -153,14 +157,10 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d(TAG, "onBindViewHolder()")
         val yearInt = calendarItems[holder.adapterPosition].first
         val monthInt = calendarItems[holder.adapterPosition].second
         val dayInt = calendarItems[holder.adapterPosition].third
-
-        Log.d("tagggg", "onBindViewHolder()-$c")
-        if(holder.adapterPosition == calendarItems.lastIndex) {
-            c = 0
-        }
 
         when(getItemViewType(holder.adapterPosition)) {
             TYPE_DAY_OF_WEEK -> {
@@ -209,7 +209,6 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
                     }
                     itemDayOfMonthDay.setTextColor(textColor)
 
-                    Log.d("taggggg", "measuredHeight=${holder.itemView.measuredHeight}")
                     itemDayOfMonthLayout.setOnClickListener {
                     }
 
@@ -260,6 +259,8 @@ class CalendarViewAdapter(private val context: Context, private val contents: Ar
     }
 
     companion object {
+        const val TAG = "CalendarViewAdapter"
+
         const val TYPE_EMPTY = 0
         const val TYPE_DAY_OF_WEEK = 1
         const val TYPE_DAY_OF_MONTH = 2
